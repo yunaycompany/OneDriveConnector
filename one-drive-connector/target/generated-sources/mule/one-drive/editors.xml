@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" url="http://www.mulesoft.org/schema/mule/one-drive" prefix="one-drive">
+  <global-cloud-connector versions="[3.5.0,8.0.0]" caption="OneDrive" description="" icon="" localId="parentConfig" image="" abstract="true" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric"></global-cloud-connector>
+  <global-cloud-connector versions="[3.5.0,8.0.0]" caption="OneDrive: OAuth 2" description="Global OAuth 2 configuration information." icon="icons/theme.classic/one-drive-connector-small.png" localId="config-with-oauth" image="icons/theme.classic/one-drive-connector-large.png" abstract="false" extends="http://www.mulesoft.org/schema/mule/one-drive/parentConfig" connectivityTesting="off" metaData="static" metaDataKeyDisplay="DISPLAY_NAME" supportsUserDefinedMetaData="false">
+    <attribute-category caption="General" description="One-drive configuration properties.">
+      <group id="one-driveGenericProperties" caption="Basic Settings">
+        <name name="name" caption="Name" description="Give a name to this configuration so it can be later referenced by config-ref." required="true"></name>
+      </group>
+      <group id="connection" caption="Connection">
+        <string name="clientId" caption="Client Id" description="The OAuth client id." required="true" javaType="java.lang.String"></string>
+        <string name="clientSecret" caption="Client Secret" description="The OAuth client secret." required="true" javaType="java.lang.String"></string>
+        <string defaultValue="onedrive.readonly" name="scope" caption="Scope" description="The OAuth scopes you want to request." required="false" javaType="java.lang.String"></string>
+        <enum defaultValue="EXCEPTION" allowsCustom="false" name="onNoToken" xsdType="string" caption="On No Token" description="Action to take when no token is found.">
+          <option value="EXCEPTION"></option>
+          <option value="STOP_FLOW"></option>
+        </enum>
+      </group>
+      <group id="general" caption="General">
+        <string defaultValue="https://api.onedrive.com" name="apiUrl" caption="Api Url" description="The API url you want to use." supportsExpressions="false" required="false" javaType="java.lang.String"></string>
+        <string defaultValue="v1.0" name="apiVersion" caption="Api Version" description="The API version you want to use." supportsExpressions="false" required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Oauth" description="OAuth.">
+      <group id="oauthCallbackConfigGroup" caption="Oauth Callback Config">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/one-drive/oauth-callback-config" caption="" description=""></childElement>
+      </group>
+      <group id="oauthStoreConfigGroup" caption="Oauth Object Store Config">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/one-drive/oauth-store-config" caption="" description=""></childElement>
+      </group>
+    </attribute-category>
+  </global-cloud-connector>
+  <cloud-connector caption="Abstractone-driveconnectorgeneric" description="Interact with One-drive." icon="icons/theme.classic/one-drive-connector-small.png" localId="abstractOne-driveConnectorGeneric" image="icons/theme.classic/one-drive-connector-large.png" abstract="true">
+    <attribute-category caption="General" description="General.">
+      <group id="abstractOne-driveConnectorGeneric" caption="Basic Settings">
+        <globalRef requiredType="http://www.mulesoft.org/schema/mule/one-drive/config-with-oauth" name="config-ref" caption="Connector Configuration" description="Specify which configuration to use for this invocation." required="true"></globalRef>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector versions="[3.5.0,8.0.0]" aliasId="org.mule.tooling.ui.modules.core.pattern.one-drive" caption="OneDrive" description="" icon="icons/theme.classic/one-drive-connector-small.png" localId="one-drive-connector" image="icons/theme.classic/one-drive-connector-large.png" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="one-driveConnectorGeneric" caption="Basic Settings">
+        <modeSwitch alwaysCombo="true" name="One-drive operations to execute" caption="Operation" description="Operation.">
+          <no-operation abstractElement="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric" versions="[3.5.0,8.0.0]" connector-name="processor"></no-operation>
+          <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/authorize" modeLabel="Authorize"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/unauthorize" modeLabel="Unauthorize"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/get-drive" modeLabel="Get drive"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/get-drives" modeLabel="Get drives"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector caption="Authorize" icon="icons/theme.classic/one-drive-connector-small.png" localId="authorize" image="icons/theme.classic/one-drive-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="state" caption="State" description="Any value that you wish to be sent with the callback." required="false"></string>
+        <string name="accessTokenUrl" caption="Access Token Url" description="The URL defined by the Service Provider to obtain an access token." required="false"></string>
+        <string name="authorizationUrl" caption="Authorization Url" description="The URL defined by the Service Provider where the resource owner will be redirected to grant authorization to the connector." required="false"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="The id of the access token that will be used to authenticate the call." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Get Drive" icon="icons/theme.classic/one-drive-connector-small.png" localId="get-drive" image="icons/theme.classic/one-drive-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+    <attribute-category caption="Advanced" description="Advanced">
+      <group id="advanced" caption="Advanced">
+        <string name="accessTokenId" caption="Access Token Id" description="The id of the access token that will be used to authenticate the call." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Get Drives" icon="icons/theme.classic/one-drive-connector-small.png" localId="get-drives" image="icons/theme.classic/one-drive-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+    <attribute-category caption="Advanced" description="Advanced">
+      <group id="advanced" caption="Advanced">
+        <string name="accessTokenId" caption="Access Token Id" description="The id of the access token that will be used to authenticate the call." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector caption="Unauthorize" icon="icons/theme.classic/one-drive-connector-small.png" localId="unauthorize" image="icons/theme.classic/one-drive-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="accessTokenId" caption="Access Token Id" description="The id of the access token that will be used to authenticate the call." required="false"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <nested caption="" description="" localId="oauth-callback-config" abstract="true">
+    <string name="domain" caption="Domain" description="The domain name to use when setting up the callback endpoint." required="true"></string>
+    <string name="localPort" caption="Local Port" description="The local port to use when setting up the callback endpoint." required="true"></string>
+    <string name="remotePort" caption="Remote Port" description="The remote port is the port used to build the external callback URL."></string>
+    <string name="path" caption="Path" description="The path to use when setting up the callback endpoint." required="true"></string>
+    <globalRef requiredType="$http://www.mulesoft.org/schema/mule/http/listener-config,http://www.mulesoft.org/schema/mule/https/connector, http://www.mulesoft.org/schema/mule/http/connector" listRequiredType="$http://www.mulesoft.org/schema/mule/http/listener-config,http://www.mulesoft.org/schema/mule/https/connector, http://www.mulesoft.org/schema/mule/http/connector" name="connector-ref" caption="Http Connector Reference" description="The Http Connector to use when setting up the callback endpoint"></globalRef>
+    <string name="defaultAccessTokenId" caption="Default Access Token Id" description="A Mule Expression to use as access token id."></string>
+    <boolean defaultValue="false" name="async" caption="Async" description="Async." supportsExpressions="false" fillLine="true"></boolean>
+  </nested>
+  <nested caption="" description="Configuration element for storage of access tokens" localId="oauth-store-config" abstract="true">
+    <string name="objectStore-ref" caption="Object Store Reference" description="Object store reference."></string>
+  </nested>
+</namespace>
