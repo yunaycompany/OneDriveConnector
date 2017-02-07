@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OneDrive
 Bundle-SymbolicName: org.mule.tooling.ui.contribution.one-drive.3.5.0;singleton:=true
-Bundle-Version: 1.0.0.201702021835
+Bundle-Version: 1.0.0.201702071646
 Bundle-Activator: org.mule.tooling.ui.contribution.OneDriveActivator
 Bundle-Vendor: 
 Require-Bundle: org.eclipse.ui,

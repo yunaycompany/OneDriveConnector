@@ -18,7 +18,7 @@ import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
 @SuppressWarnings("all")
-@Generated(value = "Mule DevKit Version 3.9.0", date = "2017-02-02T06:35:07-03:00", comments = "Build UNNAMED.2793.f49b6c7")
+@Generated(value = "Mule DevKit Version 3.9.0", date = "2017-02-07T04:46:05-03:00", comments = "Build UNNAMED.2793.f49b6c7")
 public class GetDriveDefinitionParser
     extends AbstractDevkitBasedDefinitionParser
 {
@@ -55,6 +55,7 @@ public class GetDriveDefinitionParser
             throw new BeanDefinitionParsingException(new Problem("It seems that the config-ref for @Processor [get-drive] within the connector [one-drive] is null or missing. Please, fill the value with the correct global element.", new Location(parserContext.getReaderContext().getResource()), null));
         }
         parseConfigRef(element, builder);
+        parseProperty(builder, element, "driverId", "driverId");
         parseProperty(builder, element, "accessTokenId");
         BeanDefinition definition = builder.getBeanDefinition();
         setNoRecurseOnDefinition(definition);

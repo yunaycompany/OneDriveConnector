@@ -1,15 +1,15 @@
 package com.epidata.onedrive.core;
 
 import java.io.IOException;
+import java.util.HashMap;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -45,70 +45,52 @@ public class OneDriveCore {
 	}
 
 	/**
-	 * This method is used for performing API calls.
-	 *	
-	 * @param mediaType
-	 *            media type of the call
+	 * This method is used for get API calls.	
 	 * @param path
-	 *            path in the URL
-	 * @param resultObject
-	 *            object holding the response or result of the GET call
+	 *            path in the URL	
 	 * @return response result object
 	 */
-	public Object doGetAPI(String mediaType, String path, Object resultObject) throws Exception {
+	public Object doGetAPI(String path) throws Exception {
 		long startTime = System.currentTimeMillis();
 		MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
-		ObjectMapper objectMapper = new ObjectMapper();
-		String jsonResult = "";		
+		String mediaType = MediaType.APPLICATION_JSON;
+		String jsonResult = "";
 
 		WebResource webResource = client.resource(this.oneDriveSession.getApiUrl() + path);
-		
-		queryParams.add(API_PARAM_ACCESS_TOKEN, this.oneDriveSession.getAccessToken());
-		ClientResponse clientResponse = webResource.queryParams(queryParams).accept(mediaType).get(ClientResponse.class);
 
-		if (clientResponse.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
-			jsonResult = clientResponse.getEntity(String.class);			
-		} else {
-//			try {
-				resultObject = objectMapper.readValue(clientResponse.getEntity(String.class).toString(),
-						resultObject.getClass());
-				jsonResult = objectMapper.writeValueAsString(resultObject);
-				long elapsedTime = System.currentTimeMillis() - startTime;
-				logger.debug("Executed " + webResource.getURI() + " in " + elapsedTime + " ms");
-//			} catch (UnrecognizedPropertyException ex) {
-//				jsonResult = ex.getLocation().getSourceRef().toString();
-//			}
-		}
-		
+		queryParams.add(API_PARAM_ACCESS_TOKEN, this.oneDriveSession.getAccessToken());
+		ClientResponse clientResponse = webResource.queryParams(queryParams).accept(mediaType)
+				.get(ClientResponse.class);
+
+		jsonResult = clientResponse.getEntity(String.class);
+		long elapsedTime = System.currentTimeMillis() - startTime;
+
 		return jsonResult;
 
 	}
 	
 	/**
-     * This method is used for performing API PUT calls.
+     * This method is used for performing API POST calls.
      *
+     * @param queryParams one or more parameters to be send with the POST call
      * @param mediaType media type to accept
      * @param path path in the URL
      * @param resultObject object holding the response or result of the POST call
      * @return response result object
      */
-    public Object doPutAPI(String mediaType, String path, Object resultObject) throws IOException {
-        WebResource webResource = client.resource(this.oneDriveSession.getApiUrl() + path);
-        String jsonResult = "";
-        ObjectMapper objectMapper = new ObjectMapper();        
-        MultivaluedMap<String, String> queryParams=new MultivaluedMapImpl();
-        queryParams.add(API_PARAM_ACCESS_TOKEN,  this.oneDriveSession.getAccessToken());
-        ClientResponse clientResponse = webResource.queryParams(queryParams).type(mediaType).accept(mediaType).put(ClientResponse.class, resultObject);
+    public Object doPostAPI(String path,Object params) throws IOException {
+    	WebResource webResource = client.resource(this.oneDriveSession.getApiUrl() + path);
+        MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
+        
 
-        if (clientResponse.getStatus() != ClientResponse.Status.OK.getStatusCode()) {
-        	jsonResult = clientResponse.getEntity(String.class);
-        } else {
-        	resultObject = objectMapper.readValue(clientResponse.getEntity(String.class).toString(),resultObject.getClass());
-            jsonResult = objectMapper.writeValueAsString(resultObject);
-        }
-        return jsonResult;
+		String mediaType = MediaType.APPLICATION_JSON;
+		queryParams.add(API_PARAM_ACCESS_TOKEN, this.oneDriveSession.getAccessToken());
+        ClientResponse clientResponse = webResource.queryParams(queryParams).type(mediaType).accept(mediaType).post(ClientResponse.class, params);
+
+       return clientResponse.getEntity(String.class);
     }
-
+	
+	
 	public OneDriveSession getOneDriveSession() {
 		return oneDriveSession;
 	}

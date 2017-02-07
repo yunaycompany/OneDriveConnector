@@ -12,7 +12,7 @@ import org.mule.api.devkit.capability.ModuleCapability;
  * 
  */
 @SuppressWarnings("all")
-@Generated(value = "Mule DevKit Version 3.9.0", date = "2017-02-02T06:35:07-03:00", comments = "Build UNNAMED.2793.f49b6c7")
+@Generated(value = "Mule DevKit Version 3.9.0", date = "2017-02-07T04:46:05-03:00", comments = "Build UNNAMED.2793.f49b6c7")
 public class OneDriveConnectorCapabilitiesAdapter
     extends OneDriveConnector
     implements Capabilities

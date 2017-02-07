@@ -32,16 +32,18 @@ import org.mule.security.oauth.callback.ProcessCallback;
 
 
 /**
- * GetDriveMessageProcessor invokes the {@link com.epidata.onedrive.OneDriveConnector#getDrive()} method in {@link OneDriveConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+ * GetDriveMessageProcessor invokes the {@link com.epidata.onedrive.OneDriveConnector#getDrive(java.lang.String)} method in {@link OneDriveConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
 @SuppressWarnings("all")
-@Generated(value = "Mule DevKit Version 3.9.0", date = "2017-02-02T06:35:07-03:00", comments = "Build UNNAMED.2793.f49b6c7")
+@Generated(value = "Mule DevKit Version 3.9.0", date = "2017-02-07T04:46:05-03:00", comments = "Build UNNAMED.2793.f49b6c7")
 public class GetDriveMessageProcessor
     extends DevkitBasedMessageProcessor
     implements MessageProcessor, OperationMetaDataEnabled
 {
 
+    protected Object driverId;
+    protected String _driverIdType;
 
     public GetDriveMessageProcessor(String operationName) {
         super(operationName);
@@ -77,6 +79,15 @@ public class GetDriveMessageProcessor
     }
 
     /**
+     * Sets driverId
+     * 
+     * @param value Value to set
+     */
+    public void setDriverId(Object value) {
+        this.driverId = value;
+    }
+
+    /**
      * Invokes the MessageProcessor.
      * 
      * @param event MuleEvent to be processed
@@ -88,6 +99,7 @@ public class GetDriveMessageProcessor
         Object moduleObject = null;
         try {
             moduleObject = findOrCreate(null, false, event);
+            final String _transformedDriverId = ((String) evaluateAndTransform(getMuleContext(), event, GetDriveMessageProcessor.class.getDeclaredField("_driverIdType").getGenericType(), null, driverId));
             Object resultPayload;
             final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             resultPayload = processTemplate.execute(new ProcessCallback<Object,Object>() {
@@ -104,7 +116,7 @@ public class GetDriveMessageProcessor
                 public Object process(Object object)
                     throws Exception
                 {
-                    return ((OneDriveConnector) object).getDrive();
+                    return ((OneDriveConnector) object).getDrive(_transformedDriverId);
                 }
 
             }

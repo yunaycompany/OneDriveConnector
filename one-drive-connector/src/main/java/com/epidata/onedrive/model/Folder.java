@@ -1,13 +1,23 @@
 package com.epidata.onedrive.model;
 
 public class Folder {
-	private int childCount;
+	private String name;
+	
 
-	public int getChildCount() {
-		return childCount;
+	public Folder(String name) {
+		this.name = name;
 	}
 
-	public void setChildCount(int childCount) {
-		this.childCount = childCount;
+
+
+	public String getName() {
+		return name;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	
+
 }

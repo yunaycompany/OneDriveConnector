@@ -44,8 +44,12 @@
           <no-operation abstractElement="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric" versions="[3.5.0,8.0.0]" connector-name="processor"></no-operation>
           <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/authorize" modeLabel="Authorize"></mode>
           <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/unauthorize" modeLabel="Unauthorize"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/create-folder" modeLabel="Create folder"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/get-by-u-r-l" modeLabel="Get by u r l"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/get-custom-facets" modeLabel="Get custom facets"></mode>
           <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/get-drive" modeLabel="Get drive"></mode>
           <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/get-drives" modeLabel="Get drives"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/one-drive/get-recent-used-files" modeLabel="Get recent used files"></mode>
         </modeSwitch>
       </group>
     </attribute-category>
@@ -60,8 +64,52 @@
       </group>
     </attribute-category>
   </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Create Folder" icon="icons/theme.classic/one-drive-connector-small.png" localId="create-folder" image="icons/theme.classic/one-drive-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="itemId" caption="Item Id" description="" required="true" javaType="java.lang.String"></string>
+        <string name="newFolderName" caption="New Folder Name" description="" required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Advanced" description="Advanced">
+      <group id="advanced" caption="Advanced">
+        <string name="accessTokenId" caption="Access Token Id" description="The id of the access token that will be used to authenticate the call." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Get By U R L" icon="icons/theme.classic/one-drive-connector-small.png" localId="get-by-u-r-l" image="icons/theme.classic/one-drive-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="url" caption="Url" description="" required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Advanced" description="Advanced">
+      <group id="advanced" caption="Advanced">
+        <string name="accessTokenId" caption="Access Token Id" description="The id of the access token that will be used to authenticate the call." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Get Custom Facets" icon="icons/theme.classic/one-drive-connector-small.png" localId="get-custom-facets" image="icons/theme.classic/one-drive-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="itemId" caption="Item Id" description="" required="false" javaType="java.lang.String"></string>
+        <string defaultValue="id%20desc" name="orderBy" caption="Order By" description="" required="false" javaType="java.lang.String"></string>
+        <string defaultValue="name" name="selectValues" caption="Select Values" description="" required="false" javaType="java.lang.String"></string>
+        <boolean name="expand" caption="Expand" description="" supportsExpressions="true" required="true" javaType="boolean"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Advanced" description="Advanced">
+      <group id="advanced" caption="Advanced">
+        <string name="accessTokenId" caption="Access Token Id" description="The id of the access token that will be used to authenticate the call." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
   <cloud-connector returnType="java.lang.String" caption="Get Drive" icon="icons/theme.classic/one-drive-connector-small.png" localId="get-drive" image="icons/theme.classic/one-drive-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric" metaData="static">
-    <attribute-category caption="General" description="General."></attribute-category>
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="driverId" caption="Driver Id" description="" required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
     <attribute-category caption="Advanced" description="Advanced">
       <group id="advanced" caption="Advanced">
         <string name="accessTokenId" caption="Access Token Id" description="The id of the access token that will be used to authenticate the call." required="false" javaType="java.lang.String"></string>
@@ -69,6 +117,14 @@
     </attribute-category>
   </cloud-connector>
   <cloud-connector returnType="java.lang.String" caption="Get Drives" icon="icons/theme.classic/one-drive-connector-small.png" localId="get-drives" image="icons/theme.classic/one-drive-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+    <attribute-category caption="Advanced" description="Advanced">
+      <group id="advanced" caption="Advanced">
+        <string name="accessTokenId" caption="Access Token Id" description="The id of the access token that will be used to authenticate the call." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Get Recent Used Files" icon="icons/theme.classic/one-drive-connector-small.png" localId="get-recent-used-files" image="icons/theme.classic/one-drive-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/one-drive/abstractOne-driveConnectorGeneric" metaData="static">
     <attribute-category caption="General" description="General."></attribute-category>
     <attribute-category caption="Advanced" description="Advanced">
       <group id="advanced" caption="Advanced">

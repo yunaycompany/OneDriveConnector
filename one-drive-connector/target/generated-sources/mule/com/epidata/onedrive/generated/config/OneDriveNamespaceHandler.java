@@ -16,7 +16,7 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * 
  */
 @SuppressWarnings("all")
-@Generated(value = "Mule DevKit Version 3.9.0", date = "2017-02-02T06:35:07-03:00", comments = "Build UNNAMED.2793.f49b6c7")
+@Generated(value = "Mule DevKit Version 3.9.0", date = "2017-02-07T04:46:05-03:00", comments = "Build UNNAMED.2793.f49b6c7")
 public class OneDriveNamespaceHandler
     extends NamespaceHandlerSupport
 {
@@ -64,6 +64,26 @@ public class OneDriveNamespaceHandler
             this.registerBeanDefinitionParser("get-drives", new GetDrivesDefinitionParser());
         } catch (NoClassDefFoundError ex) {
             handleException("get-drives", "@Processor", ex);
+        }
+        try {
+            this.registerBeanDefinitionParser("get-recent-used-files", new GetRecentUsedFilesDefinitionParser());
+        } catch (NoClassDefFoundError ex) {
+            handleException("get-recent-used-files", "@Processor", ex);
+        }
+        try {
+            this.registerBeanDefinitionParser("create-folder", new CreateFolderDefinitionParser());
+        } catch (NoClassDefFoundError ex) {
+            handleException("create-folder", "@Processor", ex);
+        }
+        try {
+            this.registerBeanDefinitionParser("get-custom-facets", new GetCustomFacetsDefinitionParser());
+        } catch (NoClassDefFoundError ex) {
+            handleException("get-custom-facets", "@Processor", ex);
+        }
+        try {
+            this.registerBeanDefinitionParser("get-by-u-r-l", new GetByURLDefinitionParser());
+        } catch (NoClassDefFoundError ex) {
+            handleException("get-by-u-r-l", "@Processor", ex);
         }
     }
 

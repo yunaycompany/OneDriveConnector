@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import org.mule.el.datetime.DateTime;
 
 import com.epidata.onedrive.enums.DeletedFacet;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 public class Item {
@@ -18,7 +19,7 @@ public class Item {
 	private String eTag;
 	private FileFacet file;
 	private FileSystemInfoFacet fileSystemInfo;
-	private Folder folder;
+	private FaceFolder folder;
 	private ImageFacet image;
 	private IdentitySet lastModifiedBy;
 	private DateTime lastModifiedDateTime;
@@ -37,8 +38,19 @@ public class Item {
 	private String webUrl;
 	private LinkedList<Item> items;
 	private LinkedList<ThumbnailSet> thumbnails;
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	private String downloadUrl;
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	private String sourceUrl;
+
+	public Item() {
+		// TODO Auto-generated constructor stub
+	}
 
 	
+
+
+
 	public String getId() {
 		return id;
 	}
@@ -119,11 +131,11 @@ public class Item {
 		this.fileSystemInfo = fileSystemInfo;
 	}
 
-	public Folder getFolder() {
+	public FaceFolder getFolder() {
 		return folder;
 	}
 
-	public void setFolder(Folder folder) {
+	public void setFolder(FaceFolder folder) {
 		this.folder = folder;
 	}
 

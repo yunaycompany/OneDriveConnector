@@ -17,7 +17,7 @@ import org.mule.util.ClassUtils;
 import org.mule.util.TemplateParser;
 
 @SuppressWarnings("all")
-@Generated(value = "Mule DevKit Version 3.9.0", date = "2017-02-02T06:35:07-03:00", comments = "Build UNNAMED.2793.f49b6c7")
+@Generated(value = "Mule DevKit Version 3.9.0", date = "2017-02-07T04:46:05-03:00", comments = "Build UNNAMED.2793.f49b6c7")
 public class GetDriveMessageProcessorDebuggable
     extends GetDriveMessageProcessor
     implements DebugInfoProvider
@@ -61,6 +61,7 @@ public class GetDriveMessageProcessorDebuggable
     @Override
     public List<FieldDebugInfo<?>> getDebugInfo(MuleEvent muleEvent) {
         List<FieldDebugInfo<?>> fieldDebugInfoList = new ArrayList<FieldDebugInfo<?>>();
+        fieldDebugInfoList.add(createDevKitFieldDebugInfo("driverId", "Driver id", (java.lang.String.class), driverId, muleEvent));
         return fieldDebugInfoList;
     }
 

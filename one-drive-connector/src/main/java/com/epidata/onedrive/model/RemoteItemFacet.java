@@ -5,7 +5,7 @@ package com.epidata.onedrive.model;
 public class RemoteItemFacet {
 	private String id;
 	private ItemReference parentReference;
-	private Folder folder;
+	private FaceFolder folder;
 	private File file;
 	private FileSystemInfoFacet fileSystemInfo;
 	private long size;
@@ -28,11 +28,11 @@ public class RemoteItemFacet {
 		this.parentReference = parentReference;
 	}
 
-	public Folder getFolder() {
+	public FaceFolder getFolder() {
 		return folder;
 	}
 
-	public void setFolder(Folder folder) {
+	public void setFolder(FaceFolder folder) {
 		this.folder = folder;
 	}
 
